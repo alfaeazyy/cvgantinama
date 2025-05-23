@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VCF Contact Renamer - Premium</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>VCF Contact Renamer</h1>
+            <p>Solusi premium untuk mengganti nama kontak VCF dengan mudah dan profesional</p>
+        </div>
+
+        <div class="main-card">
+            <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+                <div class="icon">📁</div>
+                <h3>Upload File VCF</h3>
+                <p>Klik untuk memilih file atau drag & drop file VCF Anda di sini (Bisa multiple files)</p>
+                <input type="file" id="fileInput" accept=".vcf" multiple />
+            </div>
+
+            <!-- File Queue Section -->
+            <div class="file-queue" id="fileQueue" style="display: none;">
+                <h3>Antrian File:</h3>
+                <div class="queue-list" id="queueList"></div>
+            </div>
+
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="status-message" id="statusMessage"></div>
+
+            <div id="modeSection" style="display: none;">
+                <h3 style="text-align: center; color: #ffd700; margin-bottom: 25px;">Pilih Mode Penggantian</h3>
+                
+                <div class="mode-selector">
+                    <div class="mode-card" onclick="selectMode('batch')">
+                        <h3>Batch Rename</h3>
+                        <p>Ganti semua nama kontak dengan nama dasar + nomor urut (contoh: Jamal 001, Jamal 002, dst)</p>
+                    </div>
+                    <div class="mode-card" onclick="selectMode('selective')">
+                        <h3>Selective Rename</h3>
+                        <p>Pilih dan ganti nama kontak satu per satu sesuai keinginan</p>
+                    </div>
+                </div>
+
+                <div class="batch-section" id="batchSection">
+                    <div class="form-group">
+                        <label for="baseName">Nama Dasar untuk Semua Kontak:</label>
+                        <input type="text" id="baseName" placeholder="Contoh: Jamal, Budi, dll...">
+                        <small>Setiap kontak akan mendapat nomor urut otomatis (001, 002, 003, dst)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="startNumber">Mulai dari Nomor:</label>
+                        <input type="number" id="startNumber" value="1" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="digitCount">Jumlah Digit Nomor:</label>
+                        <select id="digitCount">
+                            <option value="2">2 digit (01, 02, 03)</option>
+                            <option value="3" selected>3 digit (001, 002, 003)</option>
+                            <option value="4">4 digit (0001, 0002, 0003)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="outputFileName">Nama File Output:</label>
+                        <input type="text" id="outputFileName" placeholder="nama_file_baru" value="contacts_renamed">
+                    </div>
+                </div>
+
+                <div class="selective-section" id="selectiveSection">
+                    <div class="form-group">
+                        <label>Pilih Kontak yang Ingin Diubah:</label>
+                        <div class="contact-list" id="contactList"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectiveOutputFileName">Nama File Output:</label>
+                        <input type="text" id="selectiveOutputFileName" placeholder="nama_file_baru" value="contacts_selective">
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn" onclick="processCurrentFile()" id="processBtn">Proses File Saat Ini</button>
+                    <button class="btn" onclick="processAllFiles()" id="processAllBtn" style="display: none;">Proses Semua File</button>
+                    <button class="btn btn-secondary" onclick="resetAll()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
